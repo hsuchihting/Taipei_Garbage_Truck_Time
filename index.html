@@ -62,15 +62,37 @@
         <p id="validation-error" class="validation-error" role="alert" hidden></p>
       </form>
       <p class="search-hint">不選行政區或里別，也可以查詢整個區域的清運時間。</p>
+      <div class="nearby-tools">
+        <button id="nearby" class="secondary-button" disabled>◎ 現在附近有垃圾車嗎？</button>
+        <p>查詢 1 公里內、未來 60 分鐘的預定停靠地點。<br>位置僅用於本頁計算距離，不儲存或上傳。</p>
+      </div>
+      <p id="location-status" class="feature-status" role="status" hidden></p>
+      <section class="favorites" aria-labelledby="favorites-title">
+        <h3 id="favorites-title">☆ 我的收藏地點</h3>
+        <div id="favorites-list" class="favorites-list"></div>
+        <p id="favorites-empty" class="search-hint">收藏常用的區與里，下次一鍵查詢。僅儲存於此瀏覽器。</p>
+        <form id="favorite-form" class="favorite-form">
+          <label class="sr-only" for="favorite-name">收藏名稱</label>
+          <input id="favorite-name" placeholder="收藏名稱，例如：家裡、公司" maxlength="30" required disabled>
+          <button id="save-favorite" class="secondary-button" disabled>收藏目前區里</button>
+        </form>
+        <p id="favorite-status" class="feature-status" role="status" hidden></p>
+      </section>
     </section>
 
     <div id="load-status" class="load-status" role="status" aria-live="polite"><span class="status-dot"></span><span id="load-text">正在取得臺北市垃圾車資料…</span></div>
     <section id="error-state" class="message-state" role="alert" hidden><span class="state-icon" aria-hidden="true">!</span><h2>目前無法取得垃圾車資料</h2><p>臺北市開放資料服務可能暫時無法連線，<br>請稍後重新載入。</p><button id="retry" class="secondary-button">重新載入</button></section>
 
     <section id="results-section" aria-labelledby="results-title" hidden>
-      <div class="results-heading"><div><p id="query-summary" class="query-summary"></p><h2 id="results-title">搜尋結果 <span id="result-count"></span></h2></div><span class="sort-note">↓ 依抵達時間由早到晚</span></div>
-      <p class="schedule-note">以下為預定清運時間，實際抵達時間依當日交通與清運情況而定。</p>
+      <div class="results-heading"><div><p id="query-summary" class="query-summary"></p><h2 id="results-title" tabindex="-1">搜尋結果 <span id="result-count" aria-live="polite"></span></h2></div><div class="sort-control"><label for="sort-order">排序</label><select id="sort-order"><option value="time">抵達時間由早到晚</option><option value="distance">距離由近到遠（需定位）</option></select></div></div>
+      <p class="schedule-note">以下依預定時刻表估算，非即時車輛位置；實際時間與是否清運依當日公告及現場情況為準。距離為直線距離。</p>
+      <p id="page-summary" class="page-summary" role="status"></p>
       <div id="results" class="results-grid"></div>
+      <nav id="pagination" class="pagination" aria-label="垃圾車結果分頁" hidden>
+        <button id="first-page" type="button">首頁</button><button id="previous-page" type="button">上一頁</button>
+        <label for="page-select" class="sr-only">選擇頁碼</label><select id="page-select"></select>
+        <button id="next-page" type="button">下一頁</button><button id="last-page" type="button">末頁</button>
+      </nav>
       <div id="empty-state" class="message-state" hidden><span class="state-icon" aria-hidden="true">◷</span><h3>這個時間目前找不到垃圾車</h3><p>試著放寬搜尋時間，<br>或選擇其他里別、行政區再查詢。</p></div>
     </section>
     <noscript><p class="message-state">請啟用 JavaScript，以載入官方資料並查詢垃圾車時間。</p></noscript>

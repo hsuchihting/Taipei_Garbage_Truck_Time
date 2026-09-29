@@ -23,14 +23,16 @@ function coordinate(value, max) {
 
 export function normalizeData(rows) {
   const text = value => String(value ?? '').trim();
+  // Taipei also supplies 24xx for stops shortly after midnight.
+  const scheduleTime = value => text(value).replace(/^24:?([0-5]\d)$/, '00$1');
   return rows.map(row => ({
     id: row._id,
     district: text(row['行政區']), village: text(row['里別']), team: text(row['分隊']),
     internalNo: text(row['局編']), vehicleNo: text(row['車號']),
     route: text(row['路線']), trip: text(row['車次']), address: text(row['地點']),
     arrivalRaw: text(row['抵達時間']), leaveRaw: text(row['離開時間']),
-    arrivalTime: formatTime(row['抵達時間']), leaveTime: formatTime(row['離開時間']),
-    arrivalMinutes: timeToMinutes(row['抵達時間']), leaveMinutes: timeToMinutes(row['離開時間']),
+    arrivalTime: formatTime(scheduleTime(row['抵達時間'])), leaveTime: formatTime(scheduleTime(row['離開時間'])),
+    arrivalMinutes: timeToMinutes(scheduleTime(row['抵達時間'])), leaveMinutes: timeToMinutes(scheduleTime(row['離開時間'])),
     latitude: coordinate(row['緯度'], 90), longitude: coordinate(row['經度'], 180),
   }));
 }

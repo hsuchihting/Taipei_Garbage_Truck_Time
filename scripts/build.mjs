@@ -3,7 +3,7 @@ import { fetchGarbageData, normalizeData } from '../js/data.js';
 
 // Publish only application assets. Keep tests, scripts, and repository metadata out of Pages.
 for (const dir of ['dist', 'dist/css', 'dist/js', 'dist/data']) await mkdir(dir, { recursive: true });
-for (const file of ['index.html', 'favicon.svg', 'css/style.css', 'js/app.js', 'js/data.js']) {
+for (const file of ['index.html', 'favicon.svg', 'css/style.css', 'js/app.js', 'js/data.js', 'js/features.js']) {
   await copyFile(file, `dist/${file}`);
 }
 let rows;
