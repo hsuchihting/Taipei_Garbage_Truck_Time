@@ -1,12 +1,24 @@
 {
   "name": "taipei-garbage-truck-time",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/data.test.js",
-    "build": "node scripts/build.mjs",
-    "start": "node scripts/serve.mjs"
+    "test": "node tests/data.test.js && vitest run",
+    "test:unit": "node tests/data.test.js",
+    "test:components": "vitest run",
+    "dev": "vite --host 127.0.0.1",
+    "data:refresh": "node scripts/fetch-data.mjs",
+    "build": "npm run data:refresh && vite build",
+    "start": "vite preview --host 127.0.0.1 --port 4173"
   },
-  "engines": { "node": ">=22.8" }
+  "dependencies": { "vue": "3.5.43" },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.9",
+    "@vue/test-utils": "2.5.1",
+    "happy-dom": "20.14.5",
+    "vite": "8.3.1",
+    "vitest": "5.0.2"
+  },
+  "engines": { "node": "^22.12.0 || >=24.0.0" }
 }

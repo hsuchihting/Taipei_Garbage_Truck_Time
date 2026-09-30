@@ -1,11 +1,6 @@
-import { mkdir, copyFile, writeFile } from 'node:fs/promises';
-import { fetchGarbageData, normalizeData } from '../js/data.js';
-
-// Publish only application assets. Keep tests, scripts, and repository metadata out of Pages.
-for (const dir of ['dist', 'dist/css', 'dist/js', 'dist/data']) await mkdir(dir, { recursive: true });
-for (const file of ['index.html', 'favicon.svg', 'css/style.css', 'js/app.js', 'js/data.js', 'js/features.js']) {
-  await copyFile(file, `dist/${file}`);
-}
+import { mkdir, writeFile } from 'node:fs/promises';
+import { fetchGarbageData, normalizeData } from '../src/lib/data.js';
+await mkdir('public/data', { recursive: true });
 let rows;
 for (let attempt = 1; attempt <= 3; attempt++) {
   try {
@@ -18,6 +13,6 @@ for (let attempt = 1; attempt <= 3; attempt++) {
     await new Promise(resolve => setTimeout(resolve, attempt * 2000));
   }
 }
-await writeFile('dist/data/stops.json', JSON.stringify({ fetchedAt: new Date().toISOString(), count: rows.length, rows }));
-await writeFile('dist/.nojekyll', '');
+await writeFile('public/data/stops.json', JSON.stringify({ fetchedAt: new Date().toISOString(), count: rows.length, rows }));
+await writeFile('public/.nojekyll', '');
 console.log(`Built site with ${rows.length} official records. API failure stops deployment and preserves the existing site.`);

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import './features.test.js';
-import { timeToMinutes, formatTime, normalizeData, filterGarbageStops, getDistricts, getVillages, googleMapsUrl, fetchGarbageData, loadDataset } from '../js/data.js';
+import { timeToMinutes, formatTime, normalizeData, filterGarbageStops, getDistricts, getVillages, googleMapsUrl, fetchGarbageData, loadDataset } from '../src/lib/data.js';
 
 const row = (id, time, district = '信義區', village = '三張里') => ({ _id: id, '行政區': district, '里別': village, '抵達時間': time, '離開時間': '2110', '地點': '測試地點', '緯度': '25.03', '經度': '121.56' });
 const stops = normalizeData([row(1, '2101'), row(2, '1830'), row(3, '1900', '大安區', '龍安里'), row(4, '1829'), row(5, '2100'), row(6, '1940', '信義區', '中興里'), row(7, 'invalid')]);

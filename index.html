@@ -7,96 +7,10 @@
   <meta name="theme-color" content="#245b43">
   <title>臺北垃圾車時間｜清運時間查詢</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/style.css">
-  <script type="module" src="./js/app.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#search">跳至查詢條件</a>
-  <header class="site-header">
-    <div class="brand"><span class="brand-icon" aria-hidden="true">↻</span><span>臺北垃圾車時間<small>TAIPEI GARBAGE TRUCK</small></span></div>
-    <span class="header-note"><span class="status-dot"></span> 清運時間查詢</span>
-  </header>
-  <main>
-    <section class="hero" aria-labelledby="page-title">
-      <div class="hero-copy"><p class="eyebrow">城市生活，準時一點。</p>
-        <h1 id="page-title">今晚的垃圾車<br>幾點來<span class="yellow-dot">？</span></h1>
-        <p class="intro">選個時間，找到你所在的區與里。<br>垃圾車的停靠時間與地點，一次查清楚。</p>
-        <span class="hero-tag"><span aria-hidden="true">◷</span> 晚間預設查詢 18:30 – 21:00</span>
-      </div>
-      <svg class="city-art" viewBox="0 0 480 250" aria-hidden="true">
-        <circle cx="361" cy="73" r="40" fill="#ead892"/>
-        <g fill="#e3e9dd"><path d="M35 208V107h54v101M105 208V77h64v131M187 208V116h62v92M345 208V98h44v110M402 208V132h43v76"/>
-        <path d="M270 208v-27h-9v-26h8v-24h-7v-25h8V83h-6V60h13V41h11V20h3v21h10v19h13v23h-6v23h8v25h-7v24h8v26h-9v27z"/></g>
-        <g stroke="#c8d4c2" stroke-width="3"><path d="M47 122h29m-29 17h29m-29 17h29m44-63h33m-33 18h33m-33 18h33m198-15h20m-20 18h20m-20 18h20"/></g>
-        <path d="M19 218h446" stroke="#bdcbb6" stroke-width="2"/>
-        <ellipse cx="243" cy="225" rx="113" ry="8" fill="#d9e1ce"/>
-        <path d="M140 143q0-9 9-9h121v68H140z" fill="#e9bf4f"/>
-        <path d="M150 145h109v45H150z" fill="#f4d575"/>
-        <path d="M270 157h44l25 29v23h-69z" fill="#e9bf4f"/>
-        <path d="M282 166h26l17 20h-43z" fill="#426d60"/>
-        <path d="M138 201h201v11H138z" fill="#345b46"/>
-        <path d="M151 137h107" stroke="#fcdf8e" stroke-width="4"/>
-        <circle cx="177" cy="212" r="17" fill="#304f41"/><circle cx="177" cy="212" r="7" fill="#e6e9df"/>
-        <circle cx="306" cy="212" r="17" fill="#304f41"/><circle cx="306" cy="212" r="7" fill="#e6e9df"/>
-        <path d="M199 164l7-9 7 9m-7-8v23m-9-4 9 6 9-6" fill="none" stroke="#688453" stroke-width="3" stroke-linecap="round"/>
-        <g fill="#688662"><circle cx="61" cy="187" r="21"/><circle cx="407" cy="190" r="18"/></g>
-        <g stroke="#688662" stroke-width="5"><path d="M61 204v14m346-13v13"/></g>
-        <path d="M101 192h25m-18-12h18" stroke="#b3c2a8" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-    </section>
-
-    <section class="search-panel" id="search" aria-labelledby="search-title">
-      <div class="panel-heading"><h2 id="search-title">你想在哪裡倒垃圾？</h2><span>依時間 → 行政區 → 里別查詢</span></div>
-      <form id="search-form">
-        <fieldset id="search-fields" disabled>
-          <legend class="sr-only">垃圾車查詢條件</legend>
-          <div class="search-grid">
-            <div class="field time-field"><span class="field-label"><span class="step">01</span> 垃圾車時間</span>
-              <div class="time-range"><input id="start-time" type="time" value="18:30" required aria-label="開始時間"><span>～</span><input id="end-time" type="time" value="21:00" required aria-label="結束時間"></div>
-            </div>
-            <div class="field"><label for="district"><span class="step">02</span> 行政區</label><select id="district"><option value="">全臺北市</option></select></div>
-            <div class="field"><label for="village"><span class="step">03</span> 里別</label><select id="village" disabled><option value="">請先選擇行政區</option></select></div>
-            <button class="search-button" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>搜尋垃圾車</button>
-          </div>
-        </fieldset>
-        <p id="validation-error" class="validation-error" role="alert" hidden></p>
-      </form>
-      <p class="search-hint">不選行政區或里別，也可以查詢整個區域的清運時間。</p>
-      <div class="nearby-tools">
-        <button id="nearby" class="secondary-button" disabled>◎ 現在附近有垃圾車嗎？</button>
-        <p>查詢 1 公里內、未來 60 分鐘的預定停靠地點。<br>位置僅用於本頁計算距離，不儲存或上傳。</p>
-      </div>
-      <p id="location-status" class="feature-status" role="status" hidden></p>
-      <section class="favorites" aria-labelledby="favorites-title">
-        <h3 id="favorites-title">☆ 我的收藏地點</h3>
-        <div id="favorites-list" class="favorites-list"></div>
-        <p id="favorites-empty" class="search-hint">收藏常用的區與里，下次一鍵查詢。僅儲存於此瀏覽器。</p>
-        <form id="favorite-form" class="favorite-form">
-          <label class="sr-only" for="favorite-name">收藏名稱</label>
-          <input id="favorite-name" placeholder="收藏名稱，例如：家裡、公司" maxlength="30" required disabled>
-          <button id="save-favorite" class="secondary-button" disabled>收藏目前區里</button>
-        </form>
-        <p id="favorite-status" class="feature-status" role="status" hidden></p>
-      </section>
-    </section>
-
-    <div id="load-status" class="load-status" role="status" aria-live="polite"><span class="status-dot"></span><span id="load-text">正在取得臺北市垃圾車資料…</span></div>
-    <section id="error-state" class="message-state" role="alert" hidden><span class="state-icon" aria-hidden="true">!</span><h2>目前無法取得垃圾車資料</h2><p>臺北市開放資料服務可能暫時無法連線，<br>請稍後重新載入。</p><button id="retry" class="secondary-button">重新載入</button></section>
-
-    <section id="results-section" aria-labelledby="results-title" hidden>
-      <div class="results-heading"><div><p id="query-summary" class="query-summary"></p><h2 id="results-title" tabindex="-1">搜尋結果 <span id="result-count" aria-live="polite"></span></h2></div><div class="sort-control"><label for="sort-order">排序</label><select id="sort-order"><option value="time">抵達時間由早到晚</option><option value="distance">距離由近到遠（需定位）</option></select></div></div>
-      <p class="schedule-note">以下依預定時刻表估算，非即時車輛位置；實際時間與是否清運依當日公告及現場情況為準。距離為直線距離。</p>
-      <p id="page-summary" class="page-summary" role="status"></p>
-      <div id="results" class="results-grid"></div>
-      <nav id="pagination" class="pagination" aria-label="垃圾車結果分頁" hidden>
-        <button id="first-page" type="button">首頁</button><button id="previous-page" type="button">上一頁</button>
-        <label for="page-select" class="sr-only">選擇頁碼</label><select id="page-select"></select>
-        <button id="next-page" type="button">下一頁</button><button id="last-page" type="button">末頁</button>
-      </nav>
-      <div id="empty-state" class="message-state" hidden><span class="state-icon" aria-hidden="true">◷</span><h3>這個時間目前找不到垃圾車</h3><p>試著放寬搜尋時間，<br>或選擇其他里別、行政區再查詢。</p></div>
-    </section>
-    <noscript><p class="message-state">請啟用 JavaScript，以載入官方資料並查詢垃圾車時間。</p></noscript>
-  </main>
-  <footer><span class="footer-brand">臺北垃圾車時間</span><p>資料來源：<a href="https://data.taipei/" target="_blank" rel="noopener noreferrer">臺北市資料大平臺 ↗</a><br>臺北市垃圾車點位路線資訊 · 預定清運時間查詢</p></footer>
+  <div id="app"></div>
+  <noscript><p>請啟用 JavaScript，以載入官方資料並查詢垃圾車時間。</p></noscript>
 </body>
 </html>

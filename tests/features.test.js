@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { paginate, distanceMeters, sortByDistance, formatDistance, taipeiMinutes, upcomingStops, arrivalEstimate, requestLocation, saveFavorite, loadFavorites, removeFavorite, FAVORITES_KEY } from '../js/features.js';
-import { normalizeData } from '../js/data.js';
+import { paginate, distanceMeters, sortByDistance, formatDistance, taipeiMinutes, upcomingStops, arrivalEstimate, requestLocation, saveFavorite, loadFavorites, removeFavorite, FAVORITES_KEY } from '../src/lib/features.js';
+import { normalizeData } from '../src/lib/data.js';
 
 const position = { latitude:25.03, longitude:121.56 };
 const stop = (id, minutes, lat = 25.03) => ({ id, arrivalMinutes:minutes, latitude:lat, longitude:121.56 });
